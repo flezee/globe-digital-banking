@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Globalis Financial Banking - Create Account</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html, body {
+            width: 100%;
+            height: 100vh;
+            background-color: #040d1a;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .fullscreen-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: -1; 
+            background-image: linear-gradient(rgba(4, 13, 26, 0.65), rgba(4, 13, 26, 0.85)), url('./image/flag.jpeg');
+            background-size: cover !important; 
+            background-position: center center !important; 
+            background-repeat: no-repeat !important;
+        }
+        header {
+            position: relative;
+            z-index: 30;
+            background-color: rgba(3, 9, 20, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            width: 100%;
+        }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { font-size: 24px; color: #4299e1; }
+        .logo-text { font-weight: 800; letter-spacing: 2px; font-size: 20px; color: #4299e1; line-height: 1.1; }
+        .logo-text span { display: block; color: #a0aec0; font-size: 13px; letter-spacing: 4px; }
+
+        .form-area-wrapper {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .auth-container {
+            background: rgba(9, 23, 44, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(66, 153, 225, 0.2);
+            padding: 40px 32px;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 400px;
+        }
+        .auth-container h2 {
+            color: #4299e1;
+            font-size: 24px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .auth-container .subtitle {
+            color: #a0aec0;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-size: 13px; font-weight: 600; color: #cbd5e0; margin-bottom: 8px; }
+        input { width: 100%; padding: 14px 16px; background-color: rgba(3, 10, 20, 0.6); border: 1px solid #163660; border-radius: 6px; color: #ffffff; font-size: 15px; transition: all 0.2s ease; }
+        input:focus { outline: none; border-color: #00ebff; background-color: rgba(5, 19, 41, 0.9); box-shadow: 0 0 0 3px rgba(0, 235, 255, 0.2); }
+
+        .btn-register {
+            width: 100%;
+            padding: 14px;
+            background-color: #0076c6;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+        .btn-register:hover { background-color: #005fa3; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 118, 198, 0.4); }
+
+        .toggle-link { text-align: center; margin-top: 24px; font-size: 14px; color: #a0aec0; }
+        .toggle-link a { color: #00ebff; text-decoration: none; font-weight: 700; }
+
+        .error-msg {
+            background-color: rgba(229, 62, 62, 0.15);
+            border: 1px solid rgba(229, 62, 62, 0.4);
+            color: #fc8181;
+            font-size: 13px;
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="fullscreen-bg"></div>
+    <header>
+        <div class="logo-area">
+            <span class="logo-icon">🏦</span>
+            <div class="logo-text">GLOBALIS<span>FINANCIAL</span></div>
+        </div>
+    </header>
+
+    <div class="form-area-wrapper">
+        <div class="auth-container">
+            <h2>Globalis Financial</h2>
+            <p class="subtitle">Create an account to start your online banking experience</p>
+            
+            <form id="signup-form">
+                <div class="form-group">
+                    <label for="signup-username">Choose a username</label>
+                    <input type="text" id="signup-username" required placeholder="Username" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-register">Register Account</button>
+            </form>
+
+            <div id="error-message" class="error-msg"></div>
+            <p class="toggle-link">Already have an account? <a href="index.html">Sign In</a></p>
+        </div>
+    </div>
+
+    <!-- 🟢 INTERACTIVE DATA Handshake SCRIPT REGISTRATION PROCESSOR -->
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('signup-username').value;
+            const password = document.getElementById('signup-password').value;
+            const errorMsg = document.getElementById('error-message');
+
+            if (errorMsg) errorMsg.style.display = "none";
+
+            try {
+                const response = await fetch('/api/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    if (errorMsg) {
+                        errorMsg.style.display = "block";
+                        errorMsg.textContent = data.error || "Registration error.";
+                    }
+                    return;
+                }
+                // 🚀 FIXED TARGET REDIRECT: Securely glides verified entries directly back to index.html door link
+                window.location.href = '/index.html';
+            } catch (error) {
+                console.error("Signup error:", error);
+                if (errorMsg) {
+                    errorMsg.style.display = "block";
+                    errorMsg.textContent = "❌ Lost communication link with database node.";
+                }
+            }
+        });
+    </script>
+</body>
+</html>

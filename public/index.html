@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Globalis Financial - Fast and Stable Banking</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body {
+            width: 100% !important;
+            height: 100vh !important;
+            min-height: 100vh !important;
+            background-color: #040d1a !important;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* 🌆 CRYSTAL CLEAR BLENDED BACKGROUND IMAGE CANVAS */
+        .fullscreen-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: -1; 
+            /* 🟢 FIXED PATH ALIGNMENT: Points directly to your image folder drawer right next to this file */
+            background-image: linear-gradient(rgba(4, 13, 26, 0.55), rgba(4, 13, 26, 0.85)), url('image/bg1.jpg');
+            background-size: cover !important; 
+            background-position: center center !important; 
+            background-repeat: no-repeat !important;
+        }
+
+        header {
+            position: relative;
+            z-index: 30;
+            background-color: rgba(3, 9, 20, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            width: 100%;
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { font-size: 24px; color: #4299e1; }
+        .logo-text { font-weight: 800; letter-spacing: 2px; font-size: 20px; color: #4299e1; line-height: 1.1; }
+        .logo-text span { display: block; color: #a0aec0; font-size: 13px; letter-spacing: 4px; }
+
+        .hero-section {
+            position: relative;
+            z-index: 20;
+            flex: 1;
+            padding: 0 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 650px;
+            text-align: left;
+            margin-left: 20px;
+            margin-bottom: 60px; 
+        }
+
+        .tagline { color: #dd6b20; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+        h1 { font-size: 46px; font-weight: 800; line-height: 1.15; letter-spacing: 0.5px; margin-bottom: 24px; color: #ffffff; }
+        .description { color: #cbd5e0; font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
+
+        .features-list { list-style: none; margin-bottom: 35px; }
+        .features-list li { font-size: 16px; font-weight: 600; color: #edf2f7; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+        .features-list li::before { content: "✓"; color: #4299e1; font-size: 18px; font-weight: bold; }
+
+        .action-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 440px; width: 100%; }
+        .btn { padding: 14px 20px; border-radius: 4px; font-size: 15px; font-weight: 700; text-decoration: none; text-align: center; cursor: pointer; position: relative; overflow: hidden; z-index: 1; transition: all 0.3s ease; }
+        
+        .btn-primary { background-color: #0076c6; color: white; border: none; box-shadow: 0 0 0 0 rgba(0, 118, 198, 0.7); animation: buttonGlowPulse 2s infinite; }
+        .btn-primary:hover { background-color: #005fa3; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 118, 198, 0.4); }
+        
+        .btn-secondary { background-color: transparent; color: white; border: 2px solid #ffffff; backdrop-filter: blur(4px); }
+        .btn-secondary:hover { color: #040d1a; background-color: #00ebff; border-color: #00ebff; box-shadow: 0 0 15px rgba(0, 235, 255, 0.5); transform: translateY(-2px); }
+
+        @keyframes buttonGlowPulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 118, 198, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 118, 198, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 118, 198, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fullscreen-bg"></div>
+
+    <header>
+        <div class="logo-area">
+            <span class="logo-icon">🏦</span>
+            <div class="logo-text">GLOBALIS<span>FINANCIAL</span></div>
+        </div>
+    </header>
+
+    <main class="hero-section">
+        <p class="tagline">21st Century Digital Banking</p>
+        <h1>FAST AND STABLE<br>BANKING</h1>
+        
+        <p class="description">
+            Join over 70,000 users from all over the world satisfied with our services. 
+            A place where everyone performs transactions with confidence.
+        </p>
+
+        <ul class="features-list">
+            <li>Personal banking</li>
+            <li>SME banking</li>
+            <li>Corporate banking</li>
+            <li>Personal loans</li>
+        </ul>
+
+        <div class="action-container">
+            <a href="signup.html" class="btn btn-primary">Create account</a>
+            <a href="login.html" class="btn btn-secondary">Online Banking</a>
+        </div>
+    </main>
+
+</body>
+</html>

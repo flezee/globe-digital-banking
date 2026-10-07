@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Globalis Financial</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+        body {
+            /* ⚪ PREMIUM LIGHT THEME BACKGROUND CONTEXT OVERLAY */
+            background-color: #f4f7f6;
+            color: #1e293b;
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease;
+        }
+        
+        /* 🏛️ MODERN OPAY-STYLE BRAND SIDEBAR PANEL */
+        .sidebar {
+            width: 260px;
+            background-color: #ffffff;
+            border-right: 1px solid #e2e8f0;
+            padding: 35px 24px;
+            display: flex;
+            flex-direction: column;
+            z-index: 999;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.02);
+        }
+        .sidebar h2 {
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #00b06f; /* OPay Green branding identity accent */
+            margin-bottom: 45px;
+            font-weight: 800;
+            border-bottom: 2px solid #f0fdf4;
+            padding-bottom: 15px;
+        }
+        .sidebar a {
+            color: #64748b;
+            text-decoration: none;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            /* 🚀 SMOOTH DYNAMIC HOVER NAVIGATION TRANSITIONS */
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar a.active, .sidebar a:hover {
+            background-color: #f0fdf4;
+            color: #008753;
+            transform: translateX(4px);
+        }
+        .logout-btn {
+            margin-top: auto;
+            background-color: #fef2f2;
+            border: 1px solid #fee2e2;
+            color: #ef4444;
+            padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+        .logout-btn:hover {
+            background-color: #ef4444;
+            color: white;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+        }
+
+        /* 📊 MAIN CONTAINER BRIGHT CLEAN WORKSPACE */
+        .main-content {
+            flex: 1;
+            padding: 45px;
+            overflow-y: auto;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+        }
+
+        /* 🟢 KEPT: YOUR EXCELLENT OPAY HIGH-GLOSS GREEN CARD WALLET GRID */
+        .balance-card {
+            background: linear-gradient(135deg, #00b06f 0%, #008753 100%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            padding: 35px;
+            border-radius: 18px;
+            margin-bottom: 35px;
+            box-shadow: 0 12px 30px rgba(0, 176, 111, 0.25);
+            /* 🚀 EYE-CATCHING GLOW PULSE ENTRY ANIMATION LAYER */
+            animation: cardMountGlow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .balance-card p {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.85) !important;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .balance-card h2 {
+            font-size: 46px;
+            font-weight: 700;
+            color: white !important;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.15) !important;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+            color: #ffffff !important;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 35px;
+        }
+        
+        /* ⚪ ULTRA-CLEAN BUSINESS LIGHT CARDS STRUCTURAL MATRIX */
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.015);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+        }
+        
+        .card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #334155;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 12px;
+        }
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .transaction-table th {
+            text-align: left;
+            color: #64748b;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .transaction-table td {
+            padding: 18px 16px;
+            font-size: 14px;
+            color: #334155;
+            border-bottom: 1px solid #f8fafc;
+        }
+        .text-green { color: #00b06f; font-weight: 700; }
+        .text-red { color: #ef4444; font-weight: 700; }
+        
+        /* 📲 ANIMATED LIVE INTERACTION ACTION LINKS BUTTONS */
+        .quick-actions button {
+            width: 100%;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .quick-actions button::after {
+            content: "➔";
+            color: #cbd5e1;
+            font-size: 12px;
+            transition: transform 0.2s ease;
+        }
+        .quick-actions button:hover {
+            background-color: #00b06f;
+            border-color: #00b06f;
+            color: white;
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 176, 111, 0.2);
+        }
+        .quick-actions button:hover::after {
+            color: white;
+            transform: translateX(3px);
+        }
+
+        @keyframes cardMountGlow {
+            from { transform: translateY(15px); opacity: 0; filter: blur(4px); }
+            to { transform: translateY(0); opacity: 1; filter: blur(0); }
+        }
+        @keyframes slideDownNotice {
+            from { transform: translateY(-40px); opacity: 0; scale: 0.95; }
+            to { transform: translateY(0); opacity: 1; scale: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>globalis financial</h2>
+        <a href="#" class="active">🏠 Dashboard</a>
+        <a href="#" onclick="openTransferModal()">💸 Transfers</a>
+        <a href="#" onclick="openTransferModal()">📜 Statements</a>
+        <a href="#" onclick="openTransferModal()">⚙️ Settings</a>
+        <button id="logout-button" class="logout-btn">🔒 Secure Logout</button>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Welcome, JOHN ROBERT EVANS</h1>
+            <div id="date-display" style="color: #64748b; font-size: 14px; font-weight: 600;"></div>
+        </div>
+
+        <div class="balance-card">
+            <p>Available Balance</p>
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                <h2 id="balance-amount" style="margin-bottom: 0; min-width: 220px; color: white !important;">Fetching...</h2>
+                <button id="toggle-visibility-btn" onclick="toggleBalanceVisibility()" style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.2); color: #ffffff; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;">
+                    <span id="eye-icon">👁️</span>
+                </button>
+            </div>
+            <div class="status-badge">✓ Liquid Assets Fully Secured</div>
+        </div>
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>Recent Activity Log</h3>
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 600; color: #1e293b;">System service charges</td>
+                            <td style="color: #64748b;">Initial Deposit</td>
+                            <td><span style="background-color: #dcfce7; color: #15803d; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;">Completed</span></td>
+                            <td class="text-green">+$1,050.00</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600; color: #1e293b;">Local Server Node Sync</td>
+                            <td style="color: #64748b;">Infrastructure</td>
+                            <td><span style="background-color: #dcfce7; color: #15803d; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;">Completed</span></td>
+                            <td class="text-red">-$750.40</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600; color: #1e293b;">Sandbox Security Check</td>
+                            <td style="color: #64748b;">Maintenance</td>
+                            <td><span style="background-color: #fef3c7; color: #b45309; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 700;">Pending</span></td>
+                            <td style="font-weight: 700; color: #475569;">$1,750.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>Quick Actions</h3>
+                <div class="quick-actions">
+                    <button onclick="openTransferModal()">➕ Deposit Money</button>
+                    <button onclick="openTransferModal()">📲 Send Money</button>
+                    <button onclick="openTransferModal()">📄 Transaction History</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🟢 HIGH-CONTRAST EXPANDED NOTICE BOARD LAYOUT OVERLAY -->
+    <div id="transferModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); z-index: 2000; justify-content: center; align-items: flex-start; padding: 40px 20px;">
+        <div style="background: #ffffff; padding: 40px 35px; border-radius: 18px; width: 100%; max-width: 460px; min-height: 70vh !important; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); position: relative; border-top: 6px solid #dc2626; text-align: center; margin-top: 20px; animation: slideDownNotice 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
+            <button onclick="closeTransferModal()" style="position: absolute; top: 22px; right: 22px; background: none; border: none; font-size: 24px; cursor: pointer; color: #94a3b8; font-weight: bold; padding: 5px; transition: color 0.2s;" onmouseover="this.style.color='#475569'" onmouseout="this.style.color='#94a3b8'">✕</button>
+            <div style="font-size: 64px; margin-bottom: 20px; display: inline-block; filter: drop-shadow(0 4px 10px rgba(220, 38, 38, 0.15));">⚠️</div>
+            <h3 style="margin-bottom: 15px; font-size: 24px; color: #dc2626; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase;">Transaction Failed!</h3>
+            <p style="color: #475569; font-size: 15px; line-height: 1.6; font-weight: 600; margin-bottom: 35px; padding: 0 15px;">
+                Account restricted from outgoing wire transfers or local activities. Kindly visit your nearest branch office location immediately, Mr. John Robert Evans!
+            </p>
+            <button onclick="closeTransferModal()" style="width: 100%; max-width: 320px; background-color: #0f172a; color: white; border: none; padding: 16px 24px; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15); transition: all 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(15, 23, 42, 0.25)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(15, 23, 42, 0.15)';">
+                Understood & Close
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function openTransferModal() {
+            document.getElementById('transferModal').style.display = 'flex';
+        }
+        function closeTransferModal() {
+            document.getElementById('transferModal').style.display = 'none';
+        }
+        
+        document.getElementById('date-display').textContent = new Date().toLocaleDateString(undefined, { 
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+        });
+
+        // 🔒 GLOBAL PRIVACY CONTROLS
+        let isBalanceHidden = false;
+        let activeDatabaseBalance = 0.00;
+
+        // 🟢 LIVE SERVER INTERACTION DATA FLOW
+        async function fetchDashboardData() {
+            try {
+                const response = await fetch('/api/balance');
+                if (response.ok) {
+                    const data = await response.json();
+                    activeDatabaseBalance = data.balance;
+                    updateBalanceDisplay();
+                } else {
+                    window.location.href = '/index.html';
+                }
+            } catch (err) {
+                console.error("Database tracking asset link breakdown:", err);
+                updateBalanceDisplay();
+            }
+        }
+
+        // 👁️ SECURE PRIVACY INTEGRATION HANDLER
+        function toggleBalanceVisibility() {
+            isBalanceHidden = !isBalanceHidden;
+            updateBalanceDisplay();
+        }
+
+        function updateBalanceDisplay() {
+            const balanceTextElement = document.getElementById('balance-amount');
+            const eyeIconElement = document.getElementById('eye-icon');
+            const toggleButtonElement = document.getElementById('toggle-visibility-btn');
+
+            if (!balanceTextElement) return;
+
+            if (isBalanceHidden) {
+                balanceTextElement.textContent = "********";
+                if (eyeIconElement) eyeIconElement.textContent = "🙈";
+                if (toggleButtonElement) {
+                    toggleButtonElement.style.backgroundColor = "rgba(255, 255, 255, 0.08)";
+                    toggleButtonElement.style.color = "rgba(255, 255, 255, 0.6)";
+                }
+            } else {
+                balanceTextElement.textContent = "$" + parseFloat(activeDatabaseBalance).toLocaleString(undefined, {
+                    minimumFractionDigits: 2, maximumFractionDigits: 2
+                });
+                if (eyeIconElement) eyeIconElement.textContent = "👁️";
+                if (toggleButtonElement) {
+                    toggleButtonElement.style.backgroundColor = "rgba(255, 255, 255, 0.18)";
+                    toggleButtonElement.style.color = "#ffffff";
+                }
+            }
+        }
+
+        // 🔒 SECURE AUTOMATED LOGOUT HANDSHAKE
+        document.getElementById('logout-button').addEventListener('click', async () => {
+            try {
+                await fetch('/api/logout', { method: 'POST' });
+                window.location.href = '/index.html';
+            } catch (err) {
+                window.location.href = '/index.html';
+            }
+        });
+
+        // Launch tracking loops instantly on canvas mount
+        fetchDashboardData();
+    </script>
+</body>
+</html>
