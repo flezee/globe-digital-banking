@@ -27,7 +27,7 @@ db.serialize(() => {
             console.log("✔ Users data matrix initialized safely.");
             
        // 🟢 FIXED SYSTEM CORE: Restores clean syntax tracking formatting parameters
-            const targetUsername = "arthurhenryprasoeet";
+            const targetUsername = "henryjohn";
             const targetPassword = "yoursecurepasswordhere"; // Ensure your real personal password is cleanly wrapped inside these quotation marks!
             const preciseBalance = parseFloat((6429385).toFixed(2));
 
